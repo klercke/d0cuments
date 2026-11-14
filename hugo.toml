@@ -13,10 +13,10 @@ enableGitInfo = true
   dateformNumTime = "2006-01-02 15:04"
 
   # For git commit links
-  gitUrl = "https://github.com/klercke/blog.z3r0d4y.dev/commit/"
+  gitUrl = "https://github.com/klercke/d0cuments/commit/"
 
   # Subtitle for home
-  homeSubtitle = "d0c_z3r0d4y's blog/documentation site"
+  homeSubtitle = "Konnor Klercke's blog/documentation site"
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = false
@@ -31,7 +31,7 @@ enableGitInfo = true
   enableThemeToggle = true
 
   # Metadata mostly used in document's head
-  description = "d0cuments: d0c_z3r0d4y's blog"
+  description = "d0cuments: Konnor Klercke's blog"
   keywords = "blog, documentation, homelab, tech, linux"
   images = [""]
 
@@ -42,7 +42,7 @@ enableGitInfo = true
   # Utteranc.es (comments)
   [params.utterances]
     # Comments repo
-    repository = "klercke/blog.z3r0d4y.dev"
+    repository = "klercke/d0cuments"
     
     # Comments issue label
     label      = "Comment"
@@ -72,7 +72,7 @@ enableGitInfo = true
   # Social Icons
   [[params.social]]
     name = "email"
-    url = "mailto:site-contact@z3r0d4y.dev"
+    url = "mailto:konnor@klercke.com"
   
   [[params.social]]
     name = "github"
@@ -84,7 +84,7 @@ enableGitInfo = true
 
   [[params.social]]
     name = "bluesky"
-    url = "https://bsky.app/profile/d0c.z3r0d4y.dev"
+    url = "https://bsky.app/profile/klercke.com"
 
   [[params.social]]
     name = "gpg"
