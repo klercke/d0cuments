@@ -88,7 +88,7 @@ enableGitInfo = true
 
   [[params.social]]
     name = "gpg"
-    url = "https://z3r0d4y.dev/pgp-key.txt"
+    url = "https://klercke.com/pgp-key.txt"
 
   [[params.social]]
     name = "rss"
