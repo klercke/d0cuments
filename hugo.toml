@@ -1,4 +1,4 @@
-baseurl      = "https://blog.z3r0d4y.dev"
+baseurl      = "https://blog.klercke.com"
 title        = "d0cuments"
 languageCode = "en-us"
 theme        = "hello-friend-ng"
@@ -34,10 +34,6 @@ enableGitInfo = true
   description = "d0cuments: Konnor Klercke's blog"
   keywords = "blog, documentation, homelab, tech, linux"
   images = [""]
-
-  # Plausible.io analytics
-  plausibleDataDomain = 'blog.z3r0d4y.dev'
-  plausibleScriptSource = 'https://blog.z3r0d4y.dev/js/script.js'
 
   # Utteranc.es (comments)
   [params.utterances]
@@ -92,7 +88,7 @@ enableGitInfo = true
 
   [[params.social]]
     name = "rss"
-    url = "https://blog.z3r0d4y.dev/index.xml"
+    url = "https://blog.klercke.com/index.xml"
 
 [taxonomies]
     tag      = "tags"

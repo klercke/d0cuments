@@ -37,9 +37,9 @@ While GPG and PGP are different, this post is specifically referring to keys gen
 
 Another benefit of using GPG keys for "DIY" encryption is that a message encrypted with a GPG key is also implicitly signed by that key, meaning that a GPG-encrypted message can only be read by whomever holds the keys it is encrypted for (ideally, the message's intended recipients) and it can be trivially verified that the message was signed by a given key.
 When I say "DIY" encryption, I am referring to the small-scale end-user approach to BYOK: manually encrypting a message through GPG and then sending the cyphertext block over whichever channel you choose.
-I've done this for a number of years, from encrypting sensitive data before sending it to a friend of colleague, to automatically attaching my public key and a signed copy of every email I send to the original message, to more advanced (and less applicable for the average person) purposes, like [signing my site's security.txt](https://z3r0d4y.dev/.well-known/security.txt).
+I've done this for a number of years, from encrypting sensitive data before sending it to a friend of colleague, to automatically attaching my public key and a signed copy of every email I send to the original message, to more advanced (and less applicable for the average person) purposes, like [signing my site's security.txt](https://klercke.com/.well-known/security.txt).
 
-For most of these purposes, I have used my primary GPG key, which has been available on [my site](https://z3r0d4y.dev/pgp-key.txt) for as long as I can remember.
+For most of these purposes, I have used my primary GPG key, which has been available on [my site](https://klercke.com/pgp-key.txt) for as long as I can remember.
 That key is set to never expire, but it's time to retire it for a few different reasons:
 
 1. **I no longer have access to the private key.**
@@ -61,7 +61,7 @@ That key is set to never expire, but it's time to retire it for a few different 
     More importantly, I can earn the nerd credits of being able to say that my keys were generated on an air-gapped machine and would never touch a machine that had ever been or would ever be networked.
 
 That all leads us to this post.
-I've documented how I generated my new GPG keypair, what I'm using it for, and [most importantly](https://blog.z3r0d4y.dev/posts/2024-06-02-blog-setup/#why-documentation-fails), why I made the decisions that I made.
+I've documented how I generated my new GPG keypair, what I'm using it for, and [most importantly](https://blog.klercke.com/posts/2024-06-02-blog-setup/#why-documentation-fails), why I made the decisions that I made.
 
 I'm basing my setup off of [drduh's excellent guide](https://github.com/drduh/YubiKey-Guide), which I would highly recommend reading.
 I used this guide for generating my keys a few years ago and again for generating my new keys in this post.
@@ -306,11 +306,11 @@ The drduh guide goes over using the YubiKeys for SSH authentication and signing 
 The main things I am interested in securing right now are communications.
 
 I have my pgp keys stored in a number of places, all of which need to be updated.
-Luckily, in most of these places, I just link to https://z3r0d4y.dev/pgp-key.txt, so I just need to update it there.
-Since my website lives in a [GitHub repo](https://github.com/klercke/z3r0d4y.dev), I just have to update the pgp-key.txt file in that repo.
-I also updated the [security.txt](https://z3r0d4y.dev/.well-known/security.txt) file and signed it with my new key.
+Luckily, in most of these places, I just link to https://klercke.com/pgp-key.txt, so I just need to update it there.
+Since my website lives in a [GitHub repo](https://github.com/klercke/klercke.com), I just have to update the pgp-key.txt file in that repo.
+I also updated the [security.txt](https://klercke.com/.well-known/security.txt) file and signed it with my new key.
 
-!["A screenshot of z3r0d4y.dev. The website appears to be a unix-style terminal with the command "cat security.txt" typed out. The contents of this file are displayed in the terminal.](006.png "Bigger updates to this site coming soon")
+!["A screenshot of klercke.com. The website appears to be a unix-style terminal with the command "cat security.txt" typed out. The contents of this file are displayed in the terminal.](006.png "Bigger updates to this site coming soon")
 
 Now that I have my key uploaded to my website, I added the download URL to both of my YubiKeys (along with some other metadata):
 
@@ -325,7 +325,7 @@ Cardholder's surname: Klercke
 Cardholder's given name: Konnor
 
 gpg/card> url
-URL to retrieve public key: https://z3r0d4y.dev/pgp-key.txt
+URL to retrieve public key: https://klercke.com/pgp-key.txt
 
 gpg/card> lang
 Language preferences: en

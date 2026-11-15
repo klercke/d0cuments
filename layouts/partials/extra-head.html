@@ -1,0 +1,11 @@
+<!-- Privacy-friendly analytics by Plausible, skipped when Global Privacy Control is on. See https://klercke.com/privacy/ -->
+<script>
+  if (!navigator.globalPrivacyControl) {
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init({ endpoint: "/api/event" });
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "/js/script.js";
+    document.head.appendChild(s);
+  }
+</script>

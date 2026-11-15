@@ -15,7 +15,7 @@ tags:
   - IaC
 ---
 
-![A screenshot of the blog.z3r0d4y.dev homepage](001.png "This should look familiar")
+![A screenshot of the blog.klercke.com homepage](001.png "This should look familiar")
 
 ## Part z3r0: Background
 
@@ -51,7 +51,7 @@ After analyzing my thoughts each time I find myself doing this, I have identifie
     To answer the first question: almost certainly.
     Information such as hostnames, IP addresses, OS versions, and even installed packages and roles can be automatically collected fairly easily.
     Any credentials will be stored in a password manager or secret server of some sort.
-    In a strong [Infrastructure as Code](https://blog.z3r0d4y.dev/tags/iac) environment, much of this information is "self-documenting" and can easily be found in the code written to create the infrastructure.
+    In a strong [Infrastructure as Code](https://blog.klercke.com/tags/iac) environment, much of this information is "self-documenting" and can easily be found in the code written to create the infrastructure.
     Barring that, it takes under a minute to manually check this information if you have access to the server (though it is helpful to be able to access it if the server is offline).
     The second questions leads me into my second reason why I believe these documentation systems have not worked for me.
 
@@ -121,7 +121,7 @@ Also, I highly recommend checking out [their blog](https://njal.la/blog/).
 ### The Software
 
 #### GitHub
-The source files for the blog are all hosted on [GitHub](https://github.com/klercke/blog.z3r0d4y.dev).
+The source files for the blog are all hosted on [GitHub](https://github.com/klercke/blog.klercke.com).
 When I push a commit, GitHub Actions renders the Markdown files that I wrote into HTML and pushes them to asgard (more on that later), where they are visible to anyone on the internet.
 Each blog post has a comment section provided by [Utterances](https://utteranc.es/).
 Each new post gets a GitHub issue created automatically and comments on those issues are shown as comments on the post (more on this later as well).
@@ -152,8 +152,8 @@ Caddy has made everything so much simpler to host.
 The entire configuration for this site is only a few lines:
 
 ```JSON
-blog.z3r0d4y.dev {
-    root * /srv/http/blog.z3r0d4y.dev/public
+blog.klercke.com {
+    root * /srv/http/blog.klercke.com/public
     file_server
 
     @plausible path /js/script.js /api/event
@@ -170,8 +170,8 @@ The majority of this block is actually for proxying Plausible, my analytics tool
 If I didn't want to take this step, the configuration would extremely simple:
 
 ```JSON
-blog.z3r0d4y.dev {
-    root * /srv/http/blog.z3r0d4y.dev/public
+blog.klercke.com {
+    root * /srv/http/blog.klercke.com/public
     file_server
 }
 ```
@@ -203,7 +203,7 @@ Hello-friend-ng has native support for Utterances, so I just had to add the Utte
   # Utteranc.es (comments)
   [params.utterances]
     # Comments repo
-    repository = "klercke/blog.z3r0d4y.dev"
+    repository = "klercke/blog.klercke.com"
     
     # Comments issue label
     label      = "Comment"
@@ -248,8 +248,8 @@ It was trivially easy to add Plausible to my site once my account was configured
 
 ```TOML
   # Plausible.io analytics
-  plausibleDataDomain = 'blog.z3r0d4y.dev'
-  plausibleScriptSource = 'https://blog.z3r0d4y.dev/js/script.js'
+  plausibleDataDomain = 'blog.klercke.com'
+  plausibleScriptSource = 'https://blog.klercke.com/js/script.js'
 ```
 
 After demoing Plausible again, I have decided to add it back to my site for the time being.
@@ -260,9 +260,9 @@ I can't even view the IP address of users who visit my site.
 I am currently using their SaaS offering, but I do have plans to move to their self-hosted "community edition" once I move the blog to its own Linode.
 
 Many adblockers, including uBlock Origin, which I use, do block Plausible by default, so I have proxied Plausible's analytics script through my own server as seen in my Caddy configuration above, hiding its true URL from most adblockers.
-**If you wish to block or opt-out of analytics on my site, please add "https://blog.z3r0d4y.dev/js/script.js" to your adblocker's blocklist.**
+**If you wish to block or opt-out of analytics on my site, please add "https://blog.klercke.com/js/script.js" to your adblocker's blocklist.**
 
-For now, in the interest of transparency, I have made my [Plausible dashboard](https://plausible.io/blog.z3r0d4y.dev/) publicly available.
+For now, in the interest of transparency, I have made my [Plausible dashboard](https://plausible.io/blog.klercke.com/) publicly available.
 Once I move to Plausible CE, I will likely have the dashboard embedded on this site.
 Currently, uBlock Origin blocks the embed from Plausible's site (understandably).
 
@@ -326,10 +326,10 @@ Since the entire blog is stored in a Git repo and can be built with a single com
 
 When I finish an article, I just have to unmark it as a draft by removing "draft: true" from the frontmatter, commit the article folder, and then push the commit to GitHub.
 Once the commit hits GitHub, GitHub Actions takes over and clones the repo, builds the site, and then uses rsync to sync the new (or updated) files to the production server.
-From my perspective, pushing to GitHub is pushing to blog.z3r0d4y.dev.
+From my perspective, pushing to GitHub is pushing to blog.klercke.com.
 I am somewhat familiar with Azure DevOps and GitLab, but I had never used GitHub Actions before, so my workflow is based on [Scott W Harden's excellent article](https://swharden.com/blog/2022-03-20-github-actions-hugo/).
 I made some tweaks to his configuration in order to support all of the features of my site and to clear warnings about outdated Actions that were generated by checkoutv3, but the majority of the configuration is based on his.
-At the time of writing, my workflow looks like this, but the live version can always be found [here](https://github.com/klercke/blog.z3r0d4y.dev/blob/main/.github/workflows/blog.yml):
+At the time of writing, my workflow looks like this, but the live version can always be found [here](https://github.com/klercke/blog.klercke.com/blob/main/.github/workflows/blog.yml):
 
 ```YAML
 # Based on https://swharden.com/blog/2022-03-20-github-actions-hugo/
@@ -368,7 +368,7 @@ jobs:
       - name: 🔐 Load Host Keys
         run: echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
       - name: 🚀 Upload
-        run: rsync --archive --delete --stats -e 'ssh' public/ ${{ secrets.REMOTE_DEST }}:/srv/http/blog.z3r0d4y.dev/public
+        run: rsync --archive --delete --stats -e 'ssh' public/ ${{ secrets.REMOTE_DEST }}:/srv/http/blog.klercke.com/public
 ```
 
 ## Part f0ur: Conclusion
@@ -393,7 +393,7 @@ Just as a nice pen and notebook keep me motivated to practice writing by hand, I
 
 One thing that was drilled into me as a scout is the phrase "feedback is a gift" (it truly is).
 I welcome any (constructive) feedback, positive or negative on this blog.
-Feel free to use to the Utterances comments below or reach out to me directly using any of the contact methods on [my homepage](https://blog.z3r0d4y.dev/).
+Feel free to use to the Utterances comments below or reach out to me directly using any of the contact methods on [my homepage](https://blog.klercke.com/).
 While this platform is primarily meant to be documentation for myself, almost like a journal, I do also want it to be entertaining and/or helpful for others.
 My goal while writing this article was not to make a tutorial, but to explain my mindset and reasoning as I built the blog while maintaining important technical details.
 I'd really like to know if you think there's anything I missed or, more likely, details that I shouldn't have included.
