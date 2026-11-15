@@ -11,9 +11,15 @@ jobs:
   deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://blog.klercke.com
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
     steps:
       - name: 🛒 Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: 'recursive'
       - name: ✨ Setup Hugo
@@ -24,14 +30,23 @@ jobs:
           cd ~/hugo
           curl -L "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz" --output hugo.tar.gz
           tar -xvzf hugo.tar.gz
-          sudo mv hugo /usr/local/bin 
+          sudo mv hugo /usr/local/bin
       - name: 🛠️ Build
         run: hugo
-      - name: 🔐 Create Key File
-        run: install -m 600 -D /dev/null ~/.ssh/id_rsa
-      - name: 🔑 Populate Key
-        run: echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_rsa
-      - name: 🔐 Load Host Keys
-        run: echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: 🔑 Set up SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
       - name: 🚀 Upload
-        run: rsync --archive --delete --stats -e 'ssh' public/ ${{ secrets.REMOTE_DEST }}:/srv/http/blog.z3r0d4y.dev/public
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+        run: >
+          rsync -rlptvz --delete
+          -e "ssh -i ~/.ssh/deploy -p $DEPLOY_PORT -o IdentitiesOnly=yes"
+          public/ "deploy@$DEPLOY_HOST:"
